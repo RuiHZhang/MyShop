@@ -1,31 +1,33 @@
-// 引入组件
-import UserHome from '@/pages/UserHome'
-import UserSearch from '@/pages/UserSearch'
-import UserLogin from '@/pages/UserLogin'
-import UserRegister from '@/pages/UserRegister'
-import UserDetail from '@/pages/UserDetail'
-import AddCartSuccess from '@/pages/AddCartSuccess'
-import ShopCart from '@/pages/ShopCart'
-import UserTrade from '@/pages/UserTrade/index.vue'
-import UserPay from '@/pages/UserPay'
-import PaySuccess from '@/pages/PaySuccess'
-import UserCenter from '@/pages/UserCenter'
-import MyOrder from '@/pages/UserCenter/myOrder'
-import GroupOrder from '@/pages/UserCenter/groupOrder'
+// // 引入组件
+// import UserHome from '@/pages/UserHome'
+// import UserSearch from '@/pages/UserSearch'
+// import UserLogin from '@/pages/UserLogin'
+// import UserRegister from '@/pages/UserRegister'
+// import UserDetail from '@/pages/UserDetail'
+// import AddCartSuccess from '@/pages/AddCartSuccess'
+// import ShopCart from '@/pages/ShopCart'
+// import UserTrade from '@/pages/UserTrade/index.vue'
+// import UserPay from '@/pages/UserPay'
+// import PaySuccess from '@/pages/PaySuccess'
+// import UserCenter from '@/pages/UserCenter'
+// import MyOrder from '@/pages/UserCenter/myOrder'
+// import GroupOrder from '@/pages/UserCenter/groupOrder'
+
+// 使用路由懒加载
 
 export default [
     {
         path:'/center',
-        component:UserCenter,
+        component:()=>import('@/pages/UserCenter'),
         meta:{show:true},
         children:[
             {
                 path:'myorder',
-                component:MyOrder
+                component:()=>import('@/pages/UserCenter/myOrder')
             },
             {
                 path:'grouporder',
-                component:GroupOrder
+                component:()=>import('@/pages/UserCenter/groupOrder')
             },
             {
                 // 重定向
@@ -36,13 +38,13 @@ export default [
     },
     {
         path:'/paysuccess',
-        component:PaySuccess,
+        component:()=>import('@/pages/PaySuccess'),
         meta:{show:true}
     },
     // 支付路由
     {
         path:'/pay',
-        component:UserPay,
+        component:()=>import('@/pages/UserPay'),
         meta:{show:true},
         beforeEnter: (to, from, next) => {
             if(from.path == '/trade'||from.path == '/pay'){
@@ -54,7 +56,7 @@ export default [
     },
     {
         path:'/trade',
-        component:UserTrade,
+        component:()=>import('@/pages/UserTrade/index.vue'),
         meta:{show:true},
         beforeEnter: (to, from, next) => {
             if(from.path == '/cart'||from.path == '/trade'){
@@ -66,7 +68,7 @@ export default [
     },
     {
         path:'/home',
-        component:UserHome,
+        component:()=>import('@/pages/UserHome'),
         meta:{show:true}
     },
     {
@@ -75,37 +77,37 @@ export default [
         // path:'/search/:keyword',
         // path中写占位符是和字符串形式配合的，用对象形式传params时可不写
         path:'/search/:keyword?',
-        component:UserSearch,
+        component:()=>import('@/pages/UserSearch'),
         meta:{show:true},
         props:true,
     },
     {
         path:'/login',
-        component:UserLogin,
+        component:()=>import('@/pages/UserLogin'),
         meta:{show:false}
     },
     {
         path:'/register',
-        component:UserRegister,
+        component:()=>import('@/pages/UserRegister'),
         meta:{show:false}
     },
     {
         path:'/detail/:skuid?',
-        component:UserDetail,
+        component:()=>import('@/pages/UserDetail'),
         meta:{show:true}
     },
     {
         // 加入购物车成功路由
         path:'/addcartsuccess',
         name:'addcartsuccess',
-        component:AddCartSuccess,
+        component:()=>import('@/pages/AddCartSuccess'),
         meta:{show:true}
     },
 
     {
         path:'/cart',
         name:'shopcart',
-        component:ShopCart,
+        component:()=>import('@/pages/ShopCart'),
         meta:{show:false}
     },
     // 重定向，在项目运行时显示首页
